@@ -1,5 +1,6 @@
 class InventoriesController < ApplicationController
   before_action :set_inventory, only: [:show, :edit, :update, :destroy]
+  before_action :authenticate_user!, expect: [:index,:show]
 
   respond_to :html
 
@@ -13,18 +14,24 @@ class InventoriesController < ApplicationController
   end
 
   def new
-    @inventory = Inventory.new
+    @inventory = current_user.inventories.build
     respond_with(@inventory)
   end
 
   def edit
   end
 
+  
   def create
-    @inventory = Inventory.new(inventory_params)
-    @inventory.save
-    respond_with(@inventory)
+    @inventory = current_user.inventories.build(inventory_params)
+
+      if @inventory.save
+       redirect_to @inventory, notice: 'Inventory was successfully created.' 
+      else
+        render action: 'new' 
+      end
   end
+
 
   def update
     @inventory.update(inventory_params)

@@ -21,9 +21,11 @@
       <li><%= link_to "About", "#"%></li>
 
        <% if user_signed_in? %>
-      
-      <li><%= link_to "Log out", destroy_user_session_path, method: :delete%></li>
+      <li><%= link_to new_inventory_path  do%>
+      <span class="glyphicon glyphicon-plus"></span> New Item
+    <%end%>
       <li><%= link_to "Account Settings", edit_user_registration_path%></li>
+      <li><%= link_to "Log out", destroy_user_session_path, method: :delete%></li>
       <% else %>
       <li><%= link_to "Log in", new_user_session_path %></li>
       <% end %>

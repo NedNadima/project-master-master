@@ -1,3 +1,5 @@
+<%= render 'pages/home' unless user_signed_in? %>
+
 <h1>Listing inventories</h1>
 
 <table>
@@ -11,6 +13,7 @@
   </thead>
 
   <tbody>
+    <div id="inventories" class="transitions-enbaled">
     <% @inventories.each do |inventory| %>
       <tr>
         <td><%= inventory.Name %></td>
